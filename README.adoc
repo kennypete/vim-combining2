@@ -277,8 +277,8 @@ the applicable decimal, hexadecimal, or Python reference, and added to `sline`
 
 Refer Vim&#x2019;s in-built
 https://vimhelp.org/repeat.txt.html#pack-add[package management].
-This example example presumes you are in your ~\vimfiles\pack\plugins\start
-directory (so using Windows) so, adjust it accordingly if you are using a Linux
+This Windows example presumes you are in your ~\vimfiles\pack\plugins\start
+directory so, adjust it accordingly if you are using a Linux
 distro, create any necessary directories, etc.:
 
 [source,powershell]
@@ -288,6 +288,7 @@ git clone https://github.com/kennypete/vim-combining2 vim-combining2
 
 Alternatively, download the .zip from
 https://github.com/kennypete/vim-combining2
+(i.e., under the green &#x201C;&#x3C;&#x3E; Code&#x201D; button)
 and unzip the contents within the folder vim-combining2-main to
 `~\vimfiles\pack\plugins\start\vim-combining2`.
 
