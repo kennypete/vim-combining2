@@ -1,0 +1,14 @@
+= Combining characters for testing
+
+== Emoji (fully qualified; with FE0F VARIATION SELECTOR-16)
+🗨️ 🖐️ ⛷️
+
+== Alpha accented characters that look the same (but aren't)
+ā ā Ä Ä
+
+== More combining accents
+ő uͭ ç̑
+
+== HTML5 two code point characters
+≩︀ ⊊︀ =⃥
+

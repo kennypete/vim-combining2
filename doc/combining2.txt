@@ -1,0 +1,186 @@
+*combining2.txt*                   vim-combining2                 *vim-combining2*
+
+
+==============================================================================
+INTRODUCTION - COMBINING CHARACTERS                    *combining2-introduction*
+------------------------------------------------------------------------------
+
+Combining characters are used for all manner of things.  Three examples:
+
+  1. Adding an accent to a character, e.g., ā (U+0061,U+0304)
+  2. Enabling character variations, e.g., 🖐 versus 🖐️ (U+1F590,U+FE0F)
+  3. HTML5 two code point characters: ≩︀ (U+2269,U+FE00 - &gvertneqq;)
+
+In Unicode 15, there are 2,450 combining characters categorised as M{char}.
+Refer: https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
+
+An example:
+
+  0300;COMBINING GRAVE ACCENT;Mn;230;NSM;;;;;N;NON-SPACING GRAVE;;;;
+                              ^^
+                          Category Mn (Mark, Nonspacing)
+
+Some Unicode blocks - https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt
+- have descriptions of "Combining…".  Examples are:
+  "0300..036F; Combining Diacritical Marks" and
+  "FE20..FE2F; Combining Half Marks".
+
+However, there are many other combining characters outside of those blocks.
+For example, U+0483 to U+0486 are combining Cyrillic characters.
+Further, all the variation selectors, which are used for varying the
+visual presentation of characters, such as the emoji example (#2), above,
+are category Mn (Mark, Nonspacing).
+
+
+==============================================================================
+SEARCHING FOR OR SUBSTITUTING COMBINING CHARACTERS        *combining2-searching*
+------------------------------------------------------------------------------
+
+One challenge with Vim is that when using classes you can neither search for
+nor substitute characters that are combined with combining characters.
+
+For example, suppose you have the word "Māori", where the ā is U+0061,U+0304.
+Some searches or substitutions will work, e.g., literals like:
+>
+  /\va%u304
+<
+or
+>
+  /\v(a|e|i|o|u)[\u300-\u36F]
+<
+However, the following will not find the character with the combining
+character U+0304:
+>
+  /\v[a]%u304
+<
+or
+>
+  /\v.[\u300-\u36F]
+
+This is a problem for a few reasons.
+Here are two:
+
+1. A searching scenario, e.g.:
+>
+   /a.
+<
+   This will find words such as "an" and "at".  However, it will also find:
+
+   ā (a with macron, U+0061,U+0304) and
+   á (a with acute, U+0061,U+0301)
+
+   That may not be what you want. That is because humans read those characters
+   as one glyph, so one of both characters may be found (or substituted)
+   unintentionally.  (And it is, in part, why some precomposed characters
+   like á, i.e., U+00E1, exist.)
+
+2. Performing some types of substitutions is impossible.  Take a scenario such
+   as where you want to substitute all characters of a class where each
+   character has a particular variation selector to another variation selector
+   (or remove the selector altogeher).  You cannot use .[\uFE0F] to do so; you
+   would have to use an "or" with all of the characters you wanted to find.
+
+   So, for example, with dozens of emoji where variation selector 16 (U+FE0F)
+   has been applied, you would have to list them all out in a big "or" search
+   pattern.  That obviously would be inefficent, annoying, and impractical.
+   It would require something like this:
+>
+   /\v(☹|🖐)[\uFE0F]
+<
+   ...to find ☹️ and 🖐️.
+
+   A solution/workaround for this is to pre-process the combining characters.
+   Once substituted with decimal character references, hexadecimal character
+   references, or Python Unicode references, searches and substitutions may
+   then be constructed using classes of characters.
+
+   For example, using the example /\v.[\u300-\u36F], once all combining
+   characters are substituted with hexadecimal character references, finding
+   all characters that use them is straightforward:
+>
+   /\v.\&#x[[:alnum:]]+;
+<
+   So, now ☹&#xFE0F;, 🖐&#xFE0F;, a&#x305;, etc., will be found.
+
+
+==============================================================================
+WHAT THIS PLUGIN DOES                                        *combining2-plugin*
+------------------------------------------------------------------------------
+
+This plugin provides a means of substituting all M{char} category characters
+with either a decimal character reference ('&#' [0-9]+ ';'), hexadecimal
+character reference ('&#x' [0-9A-F]+ ';') or a Python Unicode references
+("\u" [0-9a-z]{4} or, where necessary "\U" [0-9a-z]{8}).
+
+Three commands have been created to do this:
+
+  `C2d`	Combining characters to decimal character references
+  `C2h`	Combining characters to hexadecimal character references
+  `C2p`	Combining characters to Python Unicode references
+
+For demonstrations of C2h (using gvim) and C2d (using Neovim), refer:
+
+https://github.com/kennypete/vim-combining2/blob/main/demo/vim-combining2.gif
+
+https://github.com/kennypete/vim-combining2/blob/main/demo/nvim-combining2.gif
+
+
+==============================================================================
+HOW IT WORKS                                           *combining2-how-it-works*
+------------------------------------------------------------------------------
+
+Although it is possible to substitute combining characters with a reverse loop
+using Vimscript, the Python Unicode Character Database (UCD) module -
+https://docs.python.org/3/library/unicodedata.html#unicodedata.unidata_version
+- is used in this plugin.  That was as much for learning/demonstration, i.e.,
+to show how to use Python "within" Vim.
+
+The only vimscript, combining2.vim, has just four lines:
+>
+  let s:path = substitute(expand('<sfile>:p:h'), '\\', '/', 'g')
+  command! C2d silent execute ":py3file " .. s:path .. "/combining2dec.py"
+  command! C2h silent execute ":py3file " .. s:path .. "/combining2hex.py"
+  command! C2p silent execute ":py3file " .. s:path .. "/combining2py.py"
+<
+  1. The first line determines the path to the script, which is where the
+     Python scripts are similarly located.
+  2. The |command|! lines define the three commands, which, when used,
+     execute, using |py3file|, the applicable Python script on the contents
+     of the current buffer.
+
+  Refer https://github.com/kennypete/vim-combining2/blob/main/README.adoc for
+  a brief description of how the Python scripts work.
+
+
+==============================================================================
+PYTHON3                                            *combining2-enabling-python3*
+------------------------------------------------------------------------------
+
+You need Python 3 installed.  If you are using the latest gvim (at the time
+of writing that is version 9.0 with patch 1677) then you will need
+Python 3.11.  Refer: |python-dynamic|, especially:
+
+  The name of the DLL should match the Python version Vim was compiled with.
+  … For Python 3 … edit "gvim.exe" and search for "python\d*.dll\c".
+
+This is literal!  So, for example, drag the vim.exe into a gvim window and
+then execute the search "python\d*.dll\c".  It will find `python311.dll` (or
+whatever the version the vim.exe was compiled with).
+
+Neovim's requirements are different.  If the C2? commands are not working
+immediately and complaining about Python 3 setup not being right, try:
+
+  `.\python.exe -m pip install --user --upgrade pynvim`
+
+(i.e., from the Python 3.x installation directory from PowerShell or cmd.)
+
+
+==============================================================================
+LICENCE                                                     *combining2-licence*
+------------------------------------------------------------------------------
+
+MIT License
+https://github.com/kennypete/vim-combining2/blob/main/LICENCE
+Copyright © 2023 Peter Kenny
+
+ vim:tw=78:ts=8:noet:ft=help:norl:
