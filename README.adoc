@@ -30,7 +30,9 @@ Combining characters are used for all manner of things.
 Three examples:
 
 1. Adding an accent to a character, e.g., ā (U+0061,U+0304)
-2. Enabling character variations, e.g., 🖐 versus 🖐️ (U+1F590,U+FE0F)
+2. Enabling character variations, e.g., 🖐 (U+1F590) versus 🖐️
+(U+1F590,U+FE0F), which look the same on GitHub, but not in all apps, (e.g.,
+in MS Word you see that the first is in b&amp;w and the second is in colour)
 3. HTML5 two code point characters: e.g., ≩︀ (_aka_ \&gvertneqq; U+2269,U+FE00)
 
 In Unicode 15, there are 2,450 combining characters categorised as
@@ -38,7 +40,7 @@ M&#x7b;char&#x7d;.
 Refer:
 https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt[UnicodeData.txt].
 
-An example (noting the &#x201C;Mn&#x201D; ― Mark, Nonspacing):
+An example (noting the &#x201C;Mn&#x201D; category, i.e., _Mark, Nonspacing_):
 
 ....
 0300;COMBINING GRAVE ACCENT;Mn;230;NSM;;;;;N;NON-SPACING GRAVE;;;;
@@ -113,6 +115,8 @@ workaround &#x2015; to it.
 Two simple examples illustrate some of the challenges caused by the current
 way search and substitution work.
 
+=== Searching
+
 First, a searching scenario:
 
 ifdef::env-github[[source,vim]]
@@ -139,14 +143,16 @@ U+0061,U+0301 - "0061 0301").
 00E1;LATIN SMALL LETTER A WITH ACUTE;Ll;0;L;0061 0301;;;;N;LATIN SMALL LETTER A ACUTE;;00C1;;00C1
 ....
 
-Second, performing some types of substitutions is impossible.
+=== Substitutions
+
+Second, performing some substitutions is near to impossible.
 Take a scenario such as where you want to substitute all characters of a class
 where each character has a particular variation selector to another variation
 selector (or remove the selector altogeher).
 You cannot use `.[\uFE0F]` to do so; you would have to use an _or_ with all
 of the characters you wanted to find.
 
-So, for example, with dozens of emoji where the variation selector 16 (U+FE0F)
+So, for example, with dozens of emoji where the VARIATION SELECTOR-16 (U+FE0F)
 has been used, you would have to list them all out in a big _or_ search
 pattern.
 That obviously would be inefficent, annoying, and impractical.
@@ -196,9 +202,9 @@ or a Python Unicode character (`"\u" [0-9a-z]{4}` _or, where necessary_
 
 Three commands have been created to do this:
 
-* #C2d# &#x2015; Combining to decimal
-* #C2h# &#x2015; Combining to hexadecimal
-* #C2p# &#x2015; Combining to Python
+* *C2d* &#x2015; Combining to decimal
+* *C2h* &#x2015; Combining to hexadecimal
+* *C2p* &#x2015; Combining to Python
 
 The demonstrations of C2h and C2d, which follow, show two of these commands
 in action.
@@ -221,7 +227,7 @@ ifdef::env-github,backend-html5[]
 image::./demo/nvim-combining2.gif[nvim-combining2-gif,707,173,align="center"]
 endif::env-github,backend-html5[]
 
-ifndef::env-github,backend-html5[https://github.com/kennypete/vim-combining2/blob/main/demo/nvim-combining2.gif[Demonstration of C2h in Neovim]]
+ifndef::env-github,backend-html5[https://github.com/kennypete/vim-combining2/blob/main/demo/nvim-combining2.gif[Demonstration of C2d in Neovim]]
 
 
 == How it works
@@ -307,9 +313,9 @@ install `vim-combining2`.
 
 === Running the Python Scripts Independently
 
-You don&#x2019;t need to install a plugin.  If you want to only use one or more
-of the Python scripts, just download it&#x2F;them and run them from Vim with
-`py3file`, e.g.:
+You don&#x2019;t need to install a plugin.  If you want to only use one or
+more of the Python scripts, just download it&#x2F;them and run them from Vim
+with `py3file`, e.g.:
 
 ifdef::env-github[[source,vim]]
 ifndef::env-github[[source,vimscript]]
@@ -339,6 +345,7 @@ with).
 
 image::./demo/python311.dll.jpg[combining2-python311-dll,669,165,align="center"]
 
+&#xa0;
 _Neovim&#x2019;s requirements are different.  As I don&#x2019;t use it, other_
 _than when testing whether things also work with it, all I will say is that_
 _I had to read the Neovim documentation and run_
