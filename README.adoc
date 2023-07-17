@@ -6,7 +6,7 @@
 :sectnums:
 //experimental is needed for kbd:[], which is NOT experimental 
 :experimental:
-:toc: preamble
+:toc:
 //there's no need for a toc title in GitHub/HTML, but in PDF there is
 ifndef::backend-html5,env-github[:toc-title: Contents]
 ifdef::backend-html5,env-github[:toc-title:]
@@ -126,7 +126,7 @@ This will find words such as &#x201C;an&#x201D; and &#x201C;at&#x201D;.
 However, it will also find:
 
 * ā (a with macron, U+0061,U+0304)
-* á (a with acute, )
+* á (a with acute, U+0061,U+0301)
 
 That _may_ not be what you want because humans read those characters
 as one glyph, so one or both _characters_ may be found (or substituted)
