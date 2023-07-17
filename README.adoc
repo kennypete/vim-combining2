@@ -213,7 +213,9 @@ the user to determine whether they want to use it or otherwise discard it.
 
 == Demonstrations
 
-#C2h# using gvim (my preferred Vim flavour 😎️):
+=== C2h in gvim
+
+Here is #C2h# using gvim (my preferred Vim flavour 😎️):
 
 ifdef::env-github,backend-html5[]
 image::./demo/vim-combining2.gif[vim-combining2-gif,956,208,align="center"]
@@ -221,7 +223,11 @@ endif::env-github,backend-html5[]
 
 ifndef::env-github,backend-html5[https://github.com/kennypete/vim-combining2/blob/main/demo/vim-combining2.gif[Demonstration of C2h in gvim]]
 
-And to show it works in Neovim too, #C2d#:
+&#xa0;
+
+=== C2d in Neovim
+
+To show that it works in Neovim too, here is #C2d#:
 
 ifdef::env-github,backend-html5[]
 image::./demo/nvim-combining2.gif[nvim-combining2-gif,707,173,align="center"]
@@ -292,10 +298,9 @@ distro, create any necessary directories, etc.:
 git clone https://github.com/kennypete/vim-combining2 vim-combining2
 ----
 
-Alternatively, download the .zip from
-https://github.com/kennypete/vim-combining2
-(i.e., under the green &#x201C;&#x3C;&#x3E; Code&#x201D; button)
-and unzip the contents within the folder vim-combining2-main to
+Alternatively, download the .zip
+(i.e., under the green btn:[<> Code] button)
+and unzip the contents within the folder _vim-combining2-main_ to
 `~\vimfiles\pack\plugins\start\vim-combining2`.
 
 === Using a plugin manager
@@ -314,8 +319,8 @@ install `vim-combining2`.
 === Running the Python Scripts Independently
 
 You don&#x2019;t need to install a plugin.  If you want to only use one or
-more of the Python scripts, just download it&#x2F;them and run them from Vim
-with `py3file`, e.g.:
+more of the Python scripts, just download it&#x2F;them and run the script
+from Vim with https://vimhelp.org/if_pyth.txt.html#%3Apy3file[py3file], e.g.:
 
 ifdef::env-github[[source,vim]]
 ifndef::env-github[[source,vimscript]]
@@ -327,7 +332,8 @@ ifndef::env-github[[source,vimscript]]
 
 You also need Python 3 installed, of course.  For example, if you are using
 the latest gvim (at the time of writing version 9.0 with patch 1677) then
-you will need Python 3.11.
+you need Python 3.11 specifically.
+
 As explained at
 https://vimhelp.org/if%5Fpyth.txt.html#python-dynamic[python-dynamic]:
 
@@ -346,6 +352,7 @@ with).
 image::./demo/python311.dll.jpg[combining2-python311-dll,669,165,align="center"]
 
 &#xa0;
+
 _Neovim&#x2019;s requirements are different.  As I don&#x2019;t use it, other_
 _than when testing whether things also work with it, all I will say is that_
 _I had to read the Neovim documentation and run_
