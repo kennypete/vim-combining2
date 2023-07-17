@@ -277,12 +277,13 @@ the applicable decimal, hexadecimal, or Python reference, and added to `sline`
 
 Refer Vim&#x2019;s in-built
 https://vimhelp.org/repeat.txt.html#pack-add[package management].
-This example is for Windows, so adjust it accordingly if you are using a Linux
+This example example presumes you are in your ~\vimfiles\pack\plugins\start
+directory (so using Windows) so, adjust it accordingly if you are using a Linux
 distro, create any necessary directories, etc.:
 
 [source,powershell]
 ----
-git clone https://github.com/kennypete/vim-combining2 ~\vimfiles\pack\plugins\start\vim-combining2
+git clone https://github.com/kennypete/vim-combining2 vim-combining2
 ----
 
 Alternatively, download the .zip from
