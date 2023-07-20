@@ -330,10 +330,13 @@ ifndef::env-github[[source,vimscript]]
 
 == Python 3
 
-You also need Python 3 installed, of course.  For example, if you are using
-the latest gvim (at the time of writing version 9.0 with patch 1677) then
-you need Python 3.11 specifically.
+You also need Python 3 installed.
 
+On Linux, you will need to have a version compiled with Python 3 support such
+as https://packages.debian.org/bookworm/vim-nox[vim-nox].
+
+On Windows, if you have the latest gvim (at the time of writing version 9.0
+with patch 1677) then you need Python 3.11 specifically.
 As explained at
 https://vimhelp.org/if%5Fpyth.txt.html#python-dynamic[python-dynamic]:
 

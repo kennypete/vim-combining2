@@ -22,5 +22,5 @@ for line in vim.current.buffer:
             # leave c unchanged
             sline += c
     result += sline + "\n"
-vim.command("let @* = '" + result.replace("'", "''") + "'")
-vim.command(':vsp | enew | norm "*PGdd') # Put replacement text in new buffer
+vim.command("let @c = '" + result.replace("'", "''") + "'")
+vim.command(':vsp | enew | norm "cPGdd') # Put replacement text in new buffer

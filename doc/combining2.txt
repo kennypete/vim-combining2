@@ -156,9 +156,14 @@ The only vimscript, combining2.vim, has just four lines:
 PYTHON3                                            *combining2-enabling-python3*
 ------------------------------------------------------------------------------
 
-You need Python 3 installed.  If you are using the latest gvim (at the time
-of writing that is version 9.0 with patch 1677) then you will need
-Python 3.11.  Refer: |python-dynamic|, especially:
+You also need Python 3 installed.
+
+On Linux, you will need to have a version compiled with Python 3 support (such
+as https://packages.debian.org/bookworm/vim-nox).
+
+On Windows, if you are using the latest gvim (at the time of writing
+version 9.0 with patch 1677) then you need Python 3.11 specifically.
+Refer: |python-dynamic|, especially:
 
   The name of the DLL should match the Python version Vim was compiled with.
   … For Python 3 … edit "gvim.exe" and search for "python\d*.dll\c".
