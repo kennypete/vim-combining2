@@ -225,6 +225,8 @@ ifndef::env-github,backend-html5[https://github.com/kennypete/vim-combining2/blo
 
 &#xa0;
 
+&#xa0;
+
 === C2d in Neovim
 
 To show that it works in Neovim too, here is #C2d#:
@@ -235,6 +237,19 @@ endif::env-github,backend-html5[]
 
 ifndef::env-github,backend-html5[https://github.com/kennypete/vim-combining2/blob/main/demo/nvim-combining2.gif[Demonstration of C2d in Neovim]]
 
+&#xa0;
+
+&#xa0;
+
+=== C2p in WSL Debian 12
+
+And finally, Debian 12 (Vim 9.0.1499), #C2p#:
+
+ifdef::env-github,backend-html5[]
+image::./demo/debian12wsl-combining2.gif[debian12wsl-combining2-gif,850,175,align="center"]
+endif::env-github,backend-html5[]
+
+ifndef::env-github,backend-html5[https://github.com/kennypete/vim-combining2/blob/main/demo/debian12wsl-combining2[Demonstration of C2p in Debian 12, Terminal WSL2]]
 
 == How it works
 
