@@ -206,7 +206,7 @@ Three commands have been created to do this:
 * *C2h* &#x2015; Combining to hexadecimal
 * *C2p* &#x2015; Combining to Python
 
-The demonstrations of C2h and C2d, which follow, show two of these commands
+The following demonstrations of C2h, C2d, and C2p, show these commands
 in action.
 The input buffer is left as-is, with a new buffer created alongside it for
 the user to determine whether they want to use it or otherwise discard it.
